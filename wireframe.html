@@ -8,6 +8,83 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <img src="./assets/stop.svg" alt="Logo" width="50" height="50">
+        <span>Estacionamento Park & Pay</span>
+    </header>
+    <div class="container">
+        <section class="control">
+            <div class="control-box">
+                <div class="title">
+                    <img src="./assets/time.svg" alt="Imagem Entrada" width="auto" height="30">
+                    <span>Entrada</span>
+                </div>
+                <div class="control-content">
+                    <form>
+                    <div class="type-selection control-row">
+                        <label for="smallcar">
+                            <input type="radio" name="cartype" id="smallcar" value="smallcar">
+                            <img src="assets/small-car.svg" alt="Carro Pequeno" width="60" height="60">
+                        </label>
+                        <label for="largecar">
+                            <input type="radio" name="cartype" id="largecar" value="largecar">
+                            <img src="assets/large-car.svg" alt="Carro Grande" width="60" height="60">
+                        </label>
+                        <label for="motorcycle">
+                            <input type="radio" name="cartype" id="motorcycle" value="motorcycle">
+                            <img src="assets/motorcycle.svg" alt="Motocicleta" width="60" height="60">
+                        </label>
+                    </div>  
+                    <div class="control-row">
+                        <label for="modelo">Modelo</label><input type="text" name="modelo" id="modelo" required>
+                    </div>
+                    <div class="control-row">
+                        <label for="placa">Placa</label><input type="text" name="placa" id="placa" required pattern="\D\D\D\d\w\D\D\D">
+                    </div>
+                    <div class="control-row">
+                        <label for="cor">Cor</label><select name="cor" id="cor">
+                            <option value="preto">Preto</option>
+                            <option value="branco">Branco</option>
+                            <option value="prata">Prata</option>
+                            <option value="azul">Azul</option>
+                            <option value="verde">Verde</option>
+                            <option value="vermelho">Vermelho</option>
+
+                        </select>
+                    </div>
+
+                    <div class="control-row">
+                        <label for="mensalista">Mensalista?</label>
+                        <input type="checkbox" name="mensalista" id="mensalista">
+                    </div>
+
+                    <div class="control-row align-right">
+                        <input type="submit" value="Cadastrar">
+                    </div>
+
+
+                </form>
+
+
+                </div>
+            </div>
+            
+            <div class="control-box">
+                <div class="title">
+                    <img src="./assets/gear.svg" alt="Imagem Entrada" width="auto" height="30">
+                    <span>Configurações</span>
+                </div>
+            </div>
+            
+            <div class="control-box">
+                <div class="title">
+                    <img src="./assets/graph.svg" alt="Imagem Entrada" width="auto" height="30">
+                    <span>Dados</span>
+                </div>  
+            </div>
+        </section>
     
+
+    </div>
 </body>
 </html>

@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+/* CSS reset */
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+  
+  ol, ul {
+    list-style: none;
+  }
+  
+
+  
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FAFAFA;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #FFA800;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+
+header img {
+    width: 50px;
+    height: 50px;
+    margin-left: 15px;
+}
+
+header span {
+    font-weight: 900;
+    font-size: 36px;
+    margin-left: 14px;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.control {
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+.control .control-box {
+    margin-top: 20px;
+    min-width: 360px;
+    background-color: rgba(255, 236, 204, 0.8);
+    padding: 8px;
+}
+
+.control .title {
+    display: flex;
+    font-weight: 700;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.control-content {
+    border: 1px solid red;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.control-content .control-row {
+    border: 1px solid black;
+}
+
+.control-row input[type="text"],.control-row select {
+    width: 65%;
+    height: 1.9rem;
+}
+
+.control-row label {
+    display: inline-block;
+    width: 35%;
+}
+
+.type-selection.control-row label {
+    width: auto;
+}
+
+
+.control-row.align-right {
+    margin-left: auto;
+}
+
+
+.type-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.type-selection label > input{
+    visibility: hidden;
+    position: fixed;
+}
+.type-selection label > input + img{
+    cursor:pointer;
+    width: 70px;
+    height: 70px;
+    padding: 5px;
+}
+.type-selection label > input:checked + img{
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid #FFA800;
+}
+
+option[value="preto"] {
+    background-color: black;
+    color: white;
+}
+
+option[value="branco"] {
+    background-color: white;
+    color: black;
+}
+
+option[value="azul"] {
+    background-color: blue;
+    color: white;
+}
+
+option[value="verde"] {
+    background-color: green;
+    color: white;
+}
+
+option[value="vermelho"] {
+    background-color: red;
+    color: white;
+}
