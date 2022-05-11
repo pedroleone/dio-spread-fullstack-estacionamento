@@ -39,7 +39,7 @@
                         <label for="modelo">Modelo</label><input type="text" name="modelo" id="modelo" required>
                     </div>
                     <div class="control-row">
-                        <label for="placa">Placa</label><input type="text" name="placa" id="placa" required pattern="\D\D\D\d\w\D\D\D">
+                        <label for="placa">Placa</label><input type="text" name="placa" id="placa" required pattern="\D\D\D\d\w\D\D">
                     </div>
                     <div class="control-row">
                         <label for="cor">Cor</label><select name="cor" id="cor">
@@ -52,28 +52,93 @@
 
                         </select>
                     </div>
-
                     <div class="control-row">
                         <label for="mensalista">Mensalista?</label>
                         <input type="checkbox" name="mensalista" id="mensalista">
                     </div>
-
                     <div class="control-row align-right">
-                        <input type="submit" value="Cadastrar">
+                        <button type="submit">Cadastrar</button>
                     </div>
-
-
                 </form>
-
-
                 </div>
             </div>
             
-            <div class="control-box">
+            <div class="control-box configuracao">
                 <div class="title">
                     <img src="./assets/gear.svg" alt="Imagem Entrada" width="auto" height="30">
                     <span>Configurações</span>
                 </div>
+                <div class="control-content-grid">
+                    <div class="control-row-grid">
+                        <div class="row-large">
+                            <span class="bold-text">Valores</span>
+                        </div><div class="row-small">
+                            <img src="./assets/small-car.svg" width="45" height="45">
+                        </div><div class="row-small">
+                            <img src="./assets/large-car.svg" width="45" height="45">
+                        </div><div class="row-small">
+                            <img src="./assets/motorcycle.svg" width="45" height="45">
+                        </div>                    
+                    </div>
+                    <div class="control-row-grid">
+                    <div class="row-large">
+                        <span>Primeira Hora</span>
+                    </div>
+                    <div class="row-small">
+                        <input type="text" name="primeirahora-peq" id="primeirahora-peq">
+                    </div>
+                    <div class="row-small">
+                        <input type="text" name="primeirahora-gde" id="primeirahora-gde">
+                    </div>
+                    <div class="row-small">
+                        <input type="text" name="primeirahora-moto" id="primeirahora-moto">
+                    </div>                   
+                    </div> 
+                    <div class="control-row-grid">
+                        <div class="row-large">
+                            <span>Segunda Hora</span>
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="segundahora-peq" id="segundahora-peq">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="segundahora-gde" id="segundahora-gde">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="segundahora-moto" id="segundahora-moto">
+                        </div>                   
+                    </div> 
+                    <div class="control-row-grid">
+                        <div class="row-large">
+                            <span>Demais Horas</span>
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="demaishoras-peq" id="demaishoras-peq">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="demaishoras-gde" id="demaishoras-gde">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="demaishoras-moto" id="demaishoras-moto">
+                        </div>                   
+                    </div> 
+                    <div class="control-row-grid mg-10">
+                        <div class="row-large">
+                            <span>Capacidade</span>
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="demaishoras-peq" id="demaishoras-peq">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="demaishoras-gde" id="demaishoras-gde">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="demaishoras-moto" id="demaishoras-moto">
+                        </div>                   
+                    </div> 
+                </div>
+
+                
             </div>
             
             <div class="control-box">
@@ -81,10 +146,125 @@
                     <img src="./assets/graph.svg" alt="Imagem Entrada" width="auto" height="30">
                     <span>Dados</span>
                 </div>  
+                <div class="control-content-grid">
+                    <div class="control-row-grid">
+                        <div class="row-large">
+                            <span class="bold-text"> </span>
+                        </div><div class="row-small">
+                            <img src="./assets/small-car.svg" width="45" height="45">
+                        </div><div class="row-small">
+                            <img src="./assets/large-car.svg" width="45" height="45">
+                        </div><div class="row-small">
+                            <img src="./assets/motorcycle.svg" width="45" height="45">
+                        </div>                    
+                    </div>
+                    <div class="control-row-grid">
+                    <div class="row-large">
+                        <span>Ocupação</span>
+                    </div>
+                    <div class="row-small">
+                        <input type="text" name="ocupacao-peq" id="ocupacao-peq">
+                    </div>
+                    <div class="row-small">
+                        <input type="text" name="ocupacao-gde" id="ocupacao-gde">
+                    </div>
+                    <div class="row-small">
+                        <input type="text" name="ocupacao-moto" id="ocupacao-moto">
+                    </div>                   
+                    </div> 
+                    <div class="control-row-grid">
+                        <div class="row-large">
+                            <span>Vagas Livres</span>
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="vagas-peq" id="vagas-peq">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="vagas-gde" id="vagas-gde">
+                        </div>
+                        <div class="row-small">
+                            <input type="text" name="vagas-moto" id="vagas-moto">
+                        </div>                   
+                    </div> 
+                    <div class="control-row-grid mg-10">
+                        <div class="row-large">
+                            <span>Faturamento Estimado</span>
+                        </div>
+                        <div class="row-resto">
+                            <input type="text" name="faturamento" id="faturamento">
+                        </div>
+
+                    </div> 
+                </div>
+
             </div>
         </section>
-    
 
     </div>
+    <section class="park">
+        <div class="titulo-park">Parque</div>
+        <div class="park-container">
+            <div class="park-item">
+                <div class="item-img">
+                    <img src="./assets/small-car.svg" alt="Carro Pequeno" width="95" height="80">
+                </div>
+                <div class="item-ident">
+                    <div class="item-placa-cor">
+                        <div class="item-placa">ABC1234</div>
+                        <div class="placa vermelho"></div>
+                    </div>
+                    <div class="item-modelo">Ford Ka</div>
+                    <div class="item-datahora">11/05/2022 16:00</div>
+                </div>
+                <div class="item-botoes">
+                    <div class="botao"><img src="./assets/delete.svg" width="45" height="45"></div>
+                    <div class="botao"><img src="./assets/checkout.svg" width="45" height="45"></div>
+                </div>
+            </div>
+
+            <div class="park-item">
+                <div class="item-img">
+                    <img src="./assets/large-car.svg" alt="Carro Grande" width="95" height="80">
+                </div>
+                <div class="item-ident">
+                    <div class="item-placa-cor">
+                        <div class="item-placa">ABC1234</div>
+                        <div class="placa verde"></div>
+                    </div>
+                    <div class="item-modelo">Jeep Renegade</div>
+                    <div class="item-datahora">11/05/2022 16:00</div>
+                </div>
+                <div class="item-botoes">
+                    <div class="botao"><img src="./assets/delete.svg" width="45" height="45"></div>
+                    <div class="botao"><img src="./assets/checkout.svg" width="45" height="45"></div>
+                </div>
+            </div>
+
+            <div class="park-item">
+                <div class="item-img">
+                    <img src="./assets/motorcycle.svg" alt="Carro Pequeno" width="95" height="80">
+                </div>
+                <div class="item-ident">
+                    <div class="item-placa-cor">
+                        <div class="item-placa">ABC1234</div>
+                        <div class="placa prata"></div>
+                    </div>
+                    <div class="item-modelo">Honda X-ADV</div>
+                    <div class="item-datahora">11/05/2022 16:00</div>
+                </div>
+                <div class="item-botoes">
+                    <div class="botao"><img src="./assets/delete.svg" width="45" height="45"></div>
+                    <div class="botao"><img src="./assets/checkout.svg" width="45" height="45"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    </section>
+
 </body>
 </html>

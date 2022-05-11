@@ -60,12 +60,13 @@ header span {
     display: flex;
     justify-content: center;
     gap: 12px;
+    flex-wrap: wrap;
 }
 .control .control-box {
     margin-top: 20px;
-    min-width: 360px;
+    width: 360px;
     background-color: rgba(255, 236, 204, 0.8);
-    padding: 8px;
+    padding: 20px 15px;
 }
 
 .control .title {
@@ -77,24 +78,25 @@ header span {
 }
 
 .control-content {
-    border: 1px solid red;
     padding-left: 20px;
     padding-right: 20px;
     margin: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     
 }
-
-.control-content .control-row {
-    border: 1px solid black;
+.control-row {
+    margin-top: 8px;
 }
+
 
 .control-row input[type="text"],.control-row select {
     width: 65%;
     height: 1.9rem;
+    
 }
+
+
 
 .control-row label {
     display: inline-block;
@@ -107,7 +109,17 @@ header span {
 
 
 .control-row.align-right {
-    margin-left: auto;
+    text-align: right;
+}
+
+.control-row button {
+    height: 1.9rem;
+    font-size: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #FFA800;
+    border-radius: 5px;
+
 }
 
 
@@ -153,7 +165,145 @@ option[value="verde"] {
     color: white;
 }
 
+option[value="prata"] {
+    background-color: silver;
+    color: black;
+}
+
 option[value="vermelho"] {
     background-color: red;
     color: white;
+}
+
+.control-content-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-content-grid .control-row, .control-content-grid .control-row-grid {
+    
+    display: flex;
+}
+
+.control-row-grid {
+    margin-top: 8px;
+    gap: 8px;
+}
+
+.row-large {
+    flex-basis: 40%;
+    
+    align-self: center;
+}
+
+.row-small {
+    flex-basis: 20%;
+    
+    text-align: center;
+}
+
+.control-content-grid input {
+    width: 100%;
+    height: 1.9rem;
+}
+
+.mg-10 {
+    margin-top: 30px;
+}
+
+.bold-text {
+    font-weight: 700;
+}
+
+.control-row-grid .row-resto {
+    width: 60%;
+}
+
+.control-row-grid .row-resto input {
+    width: 100%;
+}
+
+.park {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+}
+
+.park-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+
+.titulo-park {
+    font-size: 30px;
+    font-weight: 900;
+    margin: 10px;
+}
+
+.park-item {
+    background-color: white;
+    border-radius: 10px;
+    width: 160px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.park-item:hover {
+    background-color: rgba(255, 236, 204, 0.8);;
+}
+
+.item-placa-cor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+
+.item-placa-cor .placa {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 35%;
+}
+
+.placa.vermelho {
+    background-color: red;
+}
+
+.placa.preto {
+    background-color: black;
+}
+
+.placa.branco {
+    background-color: white;
+}
+
+.placa.azul {
+    background-color: blue;
+}
+
+.placa.verde {
+    background-color: green;
+}
+
+.placa.prata {
+    background-color: silver;
+}
+
+
+.item-botoes {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-img {
+    text-align: center;
 }
