@@ -38,9 +38,7 @@ header {
     justify-content: space-between;
 }
 
-header > * {
-    border: 1px red solid;
-}
+
 
 header .logo {
     width: 50px;
