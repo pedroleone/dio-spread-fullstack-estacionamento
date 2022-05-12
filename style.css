@@ -229,14 +229,14 @@ option[value="vermelho"] {
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    padding: 30px;
+    padding: 15px;
 }
 
 .park-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 15px;
 }
 
 
@@ -306,4 +306,17 @@ option[value="vermelho"] {
 
 .item-img {
     text-align: center;
+}
+
+@media screen and (max-width:480px) {
+    header span {
+        font-size: 28px;
+        margin-left: 14px;
+    }    
+    header img {
+        width: 50px;
+        height: 50px;
+        margin-left: 5px;
+    }
+
 }
