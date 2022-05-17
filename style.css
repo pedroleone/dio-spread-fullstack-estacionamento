@@ -61,7 +61,13 @@ header .logo {
     border-radius: 50%;
 }
 
-header span {
+
+.header-icons div {
+    display: inline-block;
+
+}
+
+.logo-name {
     font-weight: 900;
     font-size: 36px;
     margin-left: 14px;

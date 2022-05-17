@@ -11,9 +11,8 @@
 <body>
     <header>
         <img class="logo" src="./assets/stop.svg" alt="Logo" width="50" height="50">
-        <span>Park & Pay</span>
-        <div class="header-icons">
-            <img src="./assets/time.svg" alt="Entrada" class="open" id="btn-add"><img src="./assets/gear.svg" alt="Configurações" id="btn-config"><img src="./assets/graph.svg" alt="Dados" id="btn-data">
+        <span class="logo-name">Park & Pay</span>
+        <div class="header-icons"><img src="./assets/time.svg" alt="Entrada" data-child-section="adicionar" class="btn-menu open" id="btn-add"><img src="./assets/gear.svg" alt="Configurações" id="btn-config" data-child-section="configuracao" class="btn-menu open"><img src="./assets/graph.svg" alt="Dados" id="btn-data" class="btn-menu open" data-child-section="dados">
         </div>
     </header>
     <div class="container">
@@ -270,5 +269,6 @@
 
     </section>
 
+    <script src="./dist/estacionamento.js" defer></script>
 </body>
 </html>
