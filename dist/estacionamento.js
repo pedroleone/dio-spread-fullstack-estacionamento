@@ -95,19 +95,35 @@ class Configuracao {
 }
 class Patio {
     constructor() {
-        this.configuracao = new Configuracao();
-        this.configuracao.renderizarControles();
-        this.veiculosPatio = [];
         this.ocupacao = {
             carroPequeno: 0,
             carroGrande: 0,
             motocicleta: 0
         };
+        if (localStorage.config) {
+            const configData = JSON.parse(localStorage.config);
+            this.configuracao = new Configuracao(configData.carroPequeno, configData.carroGrande, configData.motocicleta);
+        }
+        else {
+            this.configuracao = new Configuracao();
+        }
+        this.veiculosPatio = [];
+        if (localStorage.veiculosPatio) {
+            const veiculosPatioGravados = JSON.parse(localStorage.veiculosPatio);
+            veiculosPatioGravados.forEach((veiculo) => {
+                console.log(veiculo);
+                this.veiculosPatio.push(new Veiculo(veiculo.nome, veiculo.placa, veiculo.tipo, new Date(veiculo.entrada), veiculo.cor, veiculo.mensalista));
+            });
+            console.log(this.veiculosPatio);
+            this.renderizaPatio();
+        }
+        this.configuracao.renderizarControles();
         this.calcularOcupacao();
         this.atualizaDados();
     }
     adicionaVeiculo(veiculo) {
         this.veiculosPatio.push(veiculo);
+        localStorage.setItem("veiculosPatio", JSON.stringify(this.veiculosPatio));
         this.calcularOcupacao();
         this.atualizaDados();
         this.renderizaPatio();
@@ -131,6 +147,11 @@ class Patio {
                 this.ocupacao.motocicleta++;
         });
     }
+    atualizarConfiguracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto) {
+        this.configuracao = new Configuracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto);
+        localStorage.setItem("config", JSON.stringify(this.configuracao));
+        this.atualizaDados();
+    }
     atualizaDados() {
         $("#ocupacao-peq").value = this.ocupacao.carroPequeno.toString();
         $("#ocupacao-gde").value = this.ocupacao.carroGrande.toString();
@@ -138,6 +159,8 @@ class Patio {
         $("#vagas-peq").value = (this.configuracao.carroPequeno.capacidade - this.ocupacao.carroPequeno).toString();
         $("#vagas-gde").value = (this.configuracao.carroGrande.capacidade - this.ocupacao.carroGrande).toString();
         $("#vagas-moto").value = (this.configuracao.motocicleta.capacidade - this.ocupacao.motocicleta).toString();
+        $("#faturamento-estimado").value = "0";
+        $("#faturamento-realizado").value = "0";
     }
 }
 const patio = new Patio();
@@ -152,4 +175,26 @@ document.querySelector("#btn-cadastrar").addEventListener("click", function (e) 
     const mensalista = $("#mensalista").checked;
     const veiculo = new Veiculo(nome, placa, tipo, entrada, cor, mensalista);
     patio.adicionaVeiculo(veiculo);
+});
+document.querySelector("#btn-salvar-config").addEventListener("click", function (e) {
+    e.preventDefault();
+    const configVeiculoPequeno = {
+        primeiraHora: Number($("#primeirahora-peq").value.replace(',', '.')),
+        segundaHora: Number($("#segundahora-peq").value.replace(',', '.')),
+        demaisHoras: Number($("#demaishoras-peq").value.replace(',', '.')),
+        capacidade: Number($("#capacidade-peq").value)
+    };
+    const configVeiculoGrande = {
+        primeiraHora: Number($("#primeirahora-gde").value.replace(',', '.')),
+        segundaHora: Number($("#segundahora-gde").value.replace(',', '.')),
+        demaisHoras: Number($("#demaishoras-gde").value.replace(',', '.')),
+        capacidade: Number($("#capacidade-gde").value)
+    };
+    const configVeiculoMoto = {
+        primeiraHora: Number($("#primeirahora-moto").value.replace(',', '.')),
+        segundaHora: Number($("#segundahora-moto").value.replace(',', '.')),
+        demaisHoras: Number($("#demaishoras-moto").value.replace(',', '.')),
+        capacidade: Number($("#capacidade-moto").value)
+    };
+    patio.atualizarConfiguracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto);
 });

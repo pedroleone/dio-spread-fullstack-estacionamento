@@ -133,6 +133,7 @@ class Configuracao {
 }
 
 class Patio {
+
     configuracao: Configuracao;
     veiculosPatio: Array<Veiculo>;
     ocupacao: {
@@ -143,21 +144,39 @@ class Patio {
     veiculosFaturados: Array<Veiculo>;
 
     constructor() {
-        this.configuracao = new Configuracao();
-        this.configuracao.renderizarControles();
-        this.veiculosPatio = [];
         this.ocupacao = {
             carroPequeno: 0,
             carroGrande: 0,
             motocicleta: 0
         }
+
+        if (localStorage.config) {
+            const configData = JSON.parse(localStorage.config) as Configuracao;
+            this.configuracao = new Configuracao(configData.carroPequeno, configData.carroGrande, configData.motocicleta);
+        } else {
+            this.configuracao = new Configuracao();
+        }
+        this.veiculosPatio = [];
+
+        if (localStorage.veiculosPatio) {
+            const veiculosPatioGravados = JSON.parse(localStorage.veiculosPatio);
+            veiculosPatioGravados.forEach((veiculo) => {
+                console.log(veiculo);
+                this.veiculosPatio.push(new Veiculo(veiculo.nome, veiculo.placa, veiculo.tipo, new Date(veiculo.entrada), veiculo.cor, veiculo.mensalista));
+            });
+            console.log(this.veiculosPatio);
+            this.renderizaPatio();
+        } 
+
+        this.configuracao.renderizarControles();
         this.calcularOcupacao();
         this.atualizaDados();
-        
+
     }
 
     adicionaVeiculo(veiculo: Veiculo) {
         this.veiculosPatio.push(veiculo);
+        localStorage.setItem("veiculosPatio", JSON.stringify(this.veiculosPatio));
         this.calcularOcupacao();
         this.atualizaDados();
         this.renderizaPatio();
@@ -180,6 +199,14 @@ class Patio {
             if (veiculo.tipo === 'motorcycle') this.ocupacao.motocicleta++;
         })
 
+
+
+    }
+
+    atualizarConfiguracao(configVeiculoPequeno: configuracoesVeiculo, configVeiculoGrande: configuracoesVeiculo, configVeiculoMoto: configuracoesVeiculo) {
+        this.configuracao = new Configuracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto);
+        localStorage.setItem("config", JSON.stringify(this.configuracao));
+        this.atualizaDados();
     }
 
     atualizaDados() {
@@ -190,6 +217,9 @@ class Patio {
         $("#vagas-peq").value = (this.configuracao.carroPequeno.capacidade - this.ocupacao.carroPequeno).toString();
         $("#vagas-gde").value = (this.configuracao.carroGrande.capacidade - this.ocupacao.carroGrande).toString();
         $("#vagas-moto").value = (this.configuracao.motocicleta.capacidade - this.ocupacao.motocicleta).toString();
+
+        $("#faturamento-estimado").value = "0";
+        $("#faturamento-realizado").value = "0";
 
     }
 }
@@ -212,3 +242,30 @@ document.querySelector("#btn-cadastrar").addEventListener("click", function (e) 
     patio.adicionaVeiculo(veiculo);
     
 });
+
+document.querySelector("#btn-salvar-config").addEventListener("click", function(e) {
+    e.preventDefault();
+    const configVeiculoPequeno: configuracoesVeiculo = {
+        primeiraHora: Number($("#primeirahora-peq").value.replace(',','.')),
+        segundaHora: Number($("#segundahora-peq").value.replace(',','.')),
+        demaisHoras: Number($("#demaishoras-peq").value.replace(',','.')),
+        capacidade: Number($("#capacidade-peq").value)
+    }
+
+    const configVeiculoGrande: configuracoesVeiculo = {
+        primeiraHora: Number($("#primeirahora-gde").value.replace(',','.')),
+        segundaHora: Number($("#segundahora-gde").value.replace(',','.')),
+        demaisHoras: Number($("#demaishoras-gde").value.replace(',','.')),
+        capacidade: Number($("#capacidade-gde").value)
+    }
+    
+    const configVeiculoMoto: configuracoesVeiculo = {
+        primeiraHora: Number($("#primeirahora-moto").value.replace(',','.')),
+        segundaHora: Number($("#segundahora-moto").value.replace(',','.')),
+        demaisHoras: Number($("#demaishoras-moto").value.replace(',','.')),
+        capacidade: Number($("#capacidade-moto").value)
+    }    
+
+    patio.atualizarConfiguracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto);
+
+})
