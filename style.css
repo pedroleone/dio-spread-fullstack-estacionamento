@@ -335,6 +335,9 @@ option[value="vermelho"] {
 }
 
 
+.btn-deletar,.btn-checkout {
+    cursor:pointer;
+}
 
 @media screen and (max-width:480px) {
     header span {

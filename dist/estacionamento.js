@@ -55,6 +55,27 @@ class Veiculo {
         </div>
         `;
     }
+    valorAPagar(config) {
+        let configVeiculo;
+        if (this.tipo === "large-car")
+            configVeiculo = config.carroGrande;
+        if (this.tipo === "small-car")
+            configVeiculo = config.carroPequeno;
+        if (this.tipo === "motorcycle")
+            configVeiculo = config.motocicleta;
+        let diffDatesMin = Math.floor((new Date().getTime() - this.entrada.getTime()) / 60000);
+        let valorCalculado = 0;
+        if (diffDatesMin < 60)
+            return configVeiculo.primeiraHora;
+        valorCalculado += configVeiculo.primeiraHora;
+        diffDatesMin -= 60; // retira primeira hora
+        if (diffDatesMin < 60)
+            return valorCalculado + configVeiculo.segundaHora;
+        valorCalculado += configVeiculo.segundaHora;
+        diffDatesMin -= 60; // retira segunda hora
+        valorCalculado += Math.ceil(diffDatesMin / 60) * configVeiculo.demaisHoras;
+        return valorCalculado;
+    }
 }
 const $ = (query) => document.querySelector(query);
 class Configuracao {
@@ -108,13 +129,12 @@ class Patio {
             this.configuracao = new Configuracao();
         }
         this.veiculosPatio = [];
+        this.veiculosFaturados = [];
         if (localStorage.veiculosPatio) {
             const veiculosPatioGravados = JSON.parse(localStorage.veiculosPatio);
             veiculosPatioGravados.forEach((veiculo) => {
-                console.log(veiculo);
                 this.veiculosPatio.push(new Veiculo(veiculo.nome, veiculo.placa, veiculo.tipo, new Date(veiculo.entrada), veiculo.cor, veiculo.mensalista));
             });
-            console.log(this.veiculosPatio);
             this.renderizaPatio();
         }
         this.configuracao.renderizarControles();
@@ -122,6 +142,10 @@ class Patio {
         this.atualizaDados();
     }
     adicionaVeiculo(veiculo) {
+        if (this.veiculosPatio.filter(veiculoExistente => veiculoExistente.placa == veiculo.placa).length > 0) {
+            alert("Placa já cadastrada! Revise o cadastro e tente novamente");
+            return;
+        }
         this.veiculosPatio.push(veiculo);
         localStorage.setItem("veiculosPatio", JSON.stringify(this.veiculosPatio));
         this.calcularOcupacao();
@@ -147,6 +171,21 @@ class Patio {
                 this.ocupacao.motocicleta++;
         });
     }
+    calcularFaturamentoEstimado() {
+        let valorFaturamentoEstimado = 0;
+        this.veiculosPatio.forEach((veiculo) => valorFaturamentoEstimado += veiculo.valorAPagar(this.configuracao));
+        return valorFaturamentoEstimado;
+    }
+    calcularFaturamentoRealizado() {
+        let valorFaturamentoRealizado = 0;
+        this.veiculosFaturados.forEach((veiculo) => valorFaturamentoRealizado += veiculo.valorPago);
+        return valorFaturamentoRealizado;
+    }
+    atualizaFaturamento() {
+        console.log("Atualizando Faturamento...");
+        $("#faturamento-estimado").value = this.calcularFaturamentoEstimado().toLocaleString();
+        $("#faturamento-realizado").value = this.calcularFaturamentoRealizado().toLocaleString();
+    }
     atualizarConfiguracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto) {
         this.configuracao = new Configuracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto);
         localStorage.setItem("config", JSON.stringify(this.configuracao));
@@ -159,15 +198,32 @@ class Patio {
         $("#vagas-peq").value = (this.configuracao.carroPequeno.capacidade - this.ocupacao.carroPequeno).toString();
         $("#vagas-gde").value = (this.configuracao.carroGrande.capacidade - this.ocupacao.carroGrande).toString();
         $("#vagas-moto").value = (this.configuracao.motocicleta.capacidade - this.ocupacao.motocicleta).toString();
-        $("#faturamento-estimado").value = "0";
+        this.atualizaFaturamento();
         $("#faturamento-realizado").value = "0";
+    }
+    removerVeiculo(placa) {
+        console.log("Deletar veiculo");
+        localStorage.setItem("veiculosPatio", JSON.stringify(this.veiculosPatio));
+        this.renderizaPatio();
+        this.atualizaFaturamento();
+    }
+    checkoutVeiculo(placa) {
+        const veiculo = this.veiculosPatio.filter(veiculo => veiculo.placa === placa)[0];
+        const valor = veiculo.valorAPagar(this.configuracao);
+        if (confirm(`Deseja fazer a saída do veículo placa ${veiculo.placa} com valor total de ${valor.toString()}?`)) {
+            veiculo.valorPago = valor;
+            this.veiculosFaturados.push(veiculo);
+            this.veiculosPatio = this.veiculosPatio.filter(veiculo => veiculo.placa !== placa);
+        }
+        this.renderizaPatio();
+        this.atualizaFaturamento();
     }
 }
 const patio = new Patio();
 document.querySelector("#btn-cadastrar").addEventListener("click", function (e) {
     e.preventDefault();
     const nome = $("#modelo").value;
-    const placa = $("#placa").value;
+    const placa = $("#placa").value.toUpperCase();
     const tipo = $("input[name='cartype']:checked").value;
     const entrada = new Date;
     const corOption = document.querySelector("#cor");
@@ -198,3 +254,20 @@ document.querySelector("#btn-salvar-config").addEventListener("click", function 
     };
     patio.atualizarConfiguracao(configVeiculoPequeno, configVeiculoGrande, configVeiculoMoto);
 });
+document.querySelector(".park-container").addEventListener("click", function (e) {
+    const element = e.target;
+    if (!element.classList.contains('btn-deletar'))
+        return;
+    const placa = element.getAttribute("data-placa");
+    if (confirm(`Deseja excluir o veículo de placa ${placa}?`))
+        patio.removerVeiculo(placa);
+});
+document.querySelector(".park-container").addEventListener("click", function (e) {
+    const element = e.target;
+    if (!element.classList.contains('btn-checkout'))
+        return;
+    const placa = element.getAttribute("data-placa");
+    patio.checkoutVeiculo(placa);
+});
+patio.atualizaFaturamento();
+setInterval(patio.atualizaFaturamento, 60 * 1000);
